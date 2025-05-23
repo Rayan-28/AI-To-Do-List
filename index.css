@@ -77,6 +77,10 @@ body {
   box-sizing: border-box;
   transform: translateX(-60px);
 }
+#task-container {
+  display: none; /* Hide initially */
+}
+
 
 #task-input {
   flex: 1; 

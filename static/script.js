@@ -7,12 +7,21 @@ const emptyMsg = document.getElementById("empty-msg");
 // Initialize tasks array from localStorage
 let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
 
+// 👇 Function to update visibility of task container
+function updateTaskBoxVisibility() {
+    if (taskContainer.children.length > 0) {
+        taskContainer.style.display = "block";
+        emptyMsg.style.display = "none";
+    } else {
+        taskContainer.style.display = "none";
+        emptyMsg.style.display = "block";
+    }
+}
+
 // Function to load tasks when page loads
 function loadTasks() {
-    // Clear existing tasks in container
     taskContainer.innerHTML = '';
-    
-    // Load tasks from localStorage
+
     tasks.forEach(task => {
         const taskEl = document.createElement("div");
         taskEl.className = "task-item";
@@ -32,7 +41,7 @@ function loadTasks() {
         checkbox.addEventListener("change", () => {
             taskSpan.classList.add("completed");
             taskEl.classList.add("fade-out");
-        
+
             const taskIndex = tasks.findIndex(t => t.text === task.text);
             if (taskIndex > -1) {
                 tasks.splice(taskIndex, 1);
@@ -41,19 +50,13 @@ function loadTasks() {
 
             setTimeout(() => {
                 taskEl.remove();
-                if (taskContainer.children.length === 0) {
-                    emptyMsg.style.display = "block";
-                }
+                updateTaskBoxVisibility(); // 👈 Update visibility after removing
             }, 500);
         });
     });
 
-    // Update empty message visibility
-    if (tasks.length > 0) {
-        emptyMsg.style.display = "none";
-    } else {
-        emptyMsg.style.display = "block";
-    }
+    // 👇 Update container visibility on load
+    updateTaskBoxVisibility();
 }
 
 // Add task event listener
@@ -65,19 +68,14 @@ addBtn.addEventListener("click", function () {
         return;
     }
 
-    // Create task object
     const task = {
         text: taskText,
         completed: false
     };
 
-    // Add to tasks array
     tasks.push(task);
-    
-    // Save to localStorage
     localStorage.setItem('tasks', JSON.stringify(tasks));
 
-    // Create task wrapper
     const taskEl = document.createElement("div");
     taskEl.className = "task-item";
 
@@ -93,14 +91,12 @@ addBtn.addEventListener("click", function () {
     taskEl.appendChild(taskSpan);
     taskContainer.appendChild(taskEl);
 
-    // Reset input
     taskInput.value = "";
-    emptyMsg.style.display = "none";
 
     checkbox.addEventListener("change", () => {
         taskSpan.classList.add("completed");
         taskEl.classList.add("fade-out");
-    
+
         const taskIndex = tasks.findIndex(t => t.text === taskText);
         if (taskIndex > -1) {
             tasks.splice(taskIndex, 1);
@@ -109,18 +105,18 @@ addBtn.addEventListener("click", function () {
 
         setTimeout(() => {
             taskEl.remove();
-            if (taskContainer.children.length === 0) {
-                emptyMsg.style.display = "block";
-            }
+            updateTaskBoxVisibility(); // 👈 Update after task is removed
         }, 500);
     });
+
+    updateTaskBoxVisibility(); // 👈 Update after task is added
 });
 
 // Load tasks when the DOM content is loaded
 document.addEventListener('DOMContentLoaded', loadTasks);
 
 // Optional: Add Enter key functionality
-taskInput.addEventListener("keypress", function(event) {
+taskInput.addEventListener("keypress", function (event) {
     if (event.key === "Enter") {
         addBtn.click();
     }
