@@ -21,9 +21,12 @@ A full‑stack web app that lets you add and prioritize tasks with ML, plus AI�
 - **ML:** scikit‑learn (Logistic Regression + TF‑IDF), custom dataset of 500+ labeled tasks  
 - **AI Suggestions:** Cohere API (command‑light)  
 
+---
+
 ##📝 Usage
-**Add a task** → It’s saved locally and classified by priority.
 
-**Type in the input** → Cohere suggests 3 subtasks; click to autofill.
+-**Add a task** → It’s saved locally and classified by priority.
 
-**Complete tasks** → Check them off to remove with a smooth fade‑out.
+-**Type in the input** → Cohere suggests 3 subtasks; click to autofill.
+
+-**Complete tasks** → Check them off to remove with a smooth fade‑out.
