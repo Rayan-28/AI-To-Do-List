@@ -187,28 +187,26 @@ body {
 }
 
 .priority-badge {
-  padding: 2px 10px;
+  padding: 2px;
   border-radius: 5px;
   color: white;
   font-size: 13px;
   font-weight: bold;
   font-family: 'Sansation', sans-serif;
-  margin-left: 100px;
-  margin-right: 10px;
+  margin-left: auto;
   min-width: 60px;
-  align-self: auto;
   text-align: center;
   user-select: none;
 }
 
 .priority-high {
-  background-color: #e74c3c;
+  background-color: #ce3928;
 }
 
 .priority-medium {
-  background-color: #f39c12;
+  background-color: #d48609;
 }
 
 .priority-low {
-  background-color: #27ae60;
+  background-color: #0e9245;
 }
