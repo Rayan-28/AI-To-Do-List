@@ -23,7 +23,7 @@ A full‑stack web app that lets you add and prioritize tasks with ML, plus AI�
 
 ---
 
-##📝 Usage
+## 📝 Usage
 
 -**Add a task** → It’s saved locally and classified by priority.
 
