@@ -10,7 +10,7 @@ CORS(app)
 model = joblib.load("task_priority_model.pkl")
 
 # Initialize Cohere
-cohere_client = cohere.Client("zZi5aALASaYpZ1iZGU0NwjL5UMu8f23t8qAAQ5Iz")  # Replace with your actual key
+cohere_client = cohere.Client("API-KEY-HERE")  # Replace with your actual key
 
 # ----------------- Routes -----------------
 
@@ -64,7 +64,6 @@ def suggest():
         return jsonify({"suggestions": suggestions[:3]})
     except Exception as e:
         return jsonify({"error": f"Generation failed: {str(e)}"}), 500
-
 
 # ----------------- Run Server -----------------
 if __name__ == '__main__':

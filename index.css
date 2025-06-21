@@ -128,7 +128,7 @@ body {
   max-height: 190px; /* enough for ~4 tasks */
   overflow-y: auto;
   border-radius: 10px;
-  margin-top: 70px;
+  margin-top: 25px;
   padding: 10px 15px;
   box-sizing: border-box;
   display: flex;
@@ -209,4 +209,63 @@ body {
 
 .priority-low {
   background-color: #0e9245;
+}
+
+/* SUGGESTION CONTAINER */
+.suggestion-container {
+  width: 62%;
+  margin-top: 8px;
+  transform: translateX(-60px);
+}
+
+.suggestion-label {
+  font-family: 'Sansation', sans-serif;
+  font-size: 14px;
+  color: #2e2d2d;
+  margin-bottom: 8px;
+  font-weight: bold;
+}
+
+.suggestion-items {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 5px;
+}
+
+.suggestion-items::-webkit-scrollbar {
+  height: 4px;
+}
+
+.suggestion-items::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 4px;
+}
+
+.suggestion-item {
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 10px 12px;
+  cursor: pointer;
+  font-family: 'Sansation', sans-serif;
+  font-size: 13px;
+  color: #444;
+  transition: all 0.3s ease;
+  user-select: none;
+  text-align: center;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  flex-shrink: 0;
+  min-width: fit-content;
+}
+
+.suggestion-item:hover {
+  background-color: #3057e2;
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }

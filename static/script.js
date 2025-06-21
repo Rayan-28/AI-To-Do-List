@@ -2,6 +2,8 @@ const addBtn = document.getElementById("add-btn");
 const taskInput = document.getElementById("task-input");
 const taskContainer = document.getElementById("task-container");
 const emptyMsg = document.getElementById("empty-msg");
+const suggestionContainer = document.getElementById("suggestion-container");
+const suggestionItems = document.getElementById("suggestion-items");
 
 let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
 
@@ -53,7 +55,7 @@ function createTaskElement(taskText, priority) {
     });
 }
 
-async function addTask(taskText) {
+async function addTask(taskText, showSuggestions = true) {
     try {
         const response = await fetch("http://127.0.0.1:5000/predict", {
             method: "POST",
@@ -77,10 +79,56 @@ async function addTask(taskText) {
         createTaskElement(taskText, priority);
         taskInput.value = "";
         updateTaskBoxVisibility();
+        
+        // Only get suggestions for manually added tasks, not clicked suggestions
+        if (showSuggestions) {
+            getSuggestions(taskText);
+        }
     } catch (error) {
         console.error("Error getting priority from server:", error);
         alert("Failed to classify task. Please check if Flask server is running.");
     }
+}
+
+async function getSuggestions(taskText) {
+    try {
+        const response = await fetch("http://127.0.0.1:5000/suggest", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ task: taskText })
+        });
+
+        const data = await response.json();
+        displaySuggestions(data.suggestions || []);
+    } catch (error) {
+        console.error("Error getting suggestions:", error);
+    }
+}
+
+function displaySuggestions(suggestions) {
+    suggestionItems.innerHTML = '';
+    
+    if (suggestions.length === 0) {
+        suggestionContainer.style.display = 'none';
+        return;
+    }
+    
+    suggestions.forEach(suggestion => {
+        const suggestionEl = document.createElement('div');
+        suggestionEl.className = 'suggestion-item';
+        suggestionEl.textContent = suggestion;
+        
+        suggestionEl.addEventListener('click', () => {
+            addTask(suggestion, false);
+            suggestionContainer.style.display = 'none';
+        });
+        
+        suggestionItems.appendChild(suggestionEl);
+    });
+    
+    suggestionContainer.style.display = 'block';
 }
 
 function loadTasks() {
